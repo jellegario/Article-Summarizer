@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🤖 Smart Content Summarizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Summarizer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>🤖 Smart Content Summarizer</h1>
-    <div class="subtitle">Paste your text below and get a concise summary</div>
+    <h1>Article Summarizer</h1>
+    <div class="subtitle">Paste your text below and click Summarize</div>
 
-    <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+    <textarea id="inputText" placeholder="Paste your article here..."></textarea>
     <button id="summarizeBtn">Summarize</button>
-    
+    <button id="loadingBtn" class="hidden" disabled>Summarizing...</button>
 
     <div id="result"></div>
   </div>
