@@ -14,12 +14,13 @@ body {
 /* Main card */
 .container {
   background: #2c003e;
-  padding: 40px;
+  padding: 40px 20px; /* reduced horizontal padding for small screens */
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px; /* card won't exceed 600px */
   text-align: center;
+  box-sizing: border-box;
 }
 
 /* Title */
@@ -121,29 +122,28 @@ textarea:focus {
   transform: translateY(0);
 }
 
-#result {
-  max-height: 200px;          /* limits the height */
-  overflow-y: auto;           /* enables vertical scroll */
-  padding-right: 10px;        /* for scrollbar spacing */
-}
-
-/* Optional: style the scrollbar */
-#result::-webkit-scrollbar {
-  width: 8px;
-}
-
-#result::-webkit-scrollbar-track {
-  background: #1a001f;
-  border-radius: 4px;
-}
-
-#result::-webkit-scrollbar-thumb {
-  background: #7d3cff;
-  border-radius: 4px;
-}
-
 pre {
   margin: 0;
   font-family: inherit;
   white-space: pre-wrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    padding: 30px 15px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  #summarizeBtn, #loadingBtn {
+    width: 100%;
+    padding: 12px 0;
+  }
+  textarea {
+    height: 150px;
+  }
 }
