@@ -1,65 +1,45 @@
-// script.js
+const summarizeBtn = document.getElementById('summarizeBtn');
+const loadingBtn = document.getElementById('loadingBtn');
+const inputText = document.getElementById('inputText');
+const resultBox = document.getElementById('result');
 
-// DOM elements
-const summarizeBtn = document.getElementById("summarizeBtn");
-const textarea = document.getElementById("inputText");
-const resultDiv = document.getElementById("result");
-
-// Function to summarize text using Gemini API
-async function summarizeText() {
-  const text = textarea.value.trim();
+async function summarizeArticle() {
+  const text = inputText.value.trim();
   if (!text) {
-    alert("Please enter text to summarize!");
+    alert("Please enter text to summarize.");
     return;
   }
 
-  // Disable button and show loading
-  summarizeBtn.disabled = true;
-  summarizeBtn.textContent = "Summarizing...";
-
-  // Clear previous result
-  resultDiv.textContent = "";
-  resultDiv.classList.remove("show");
+  // Show loading
+  summarizeBtn.classList.add('hidden');
+  loadingBtn.classList.remove('hidden');
+  resultBox.classList.remove('show');
+  resultBox.textContent = "";
 
   try {
-    // Make request to your backend server (server.js)
-    const response = await fetch("/summarize", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
-    });
+    // Simulate API call (replace this with actual API request)
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
-    const data = await response.json();
+    // Dummy summarized text
+    const summary = text.split('.').slice(0, 2).join('.') + '.';
 
-    // Split summary into sentences for fade-in effect
-    const summary = data.summary || "No summary returned.";
-    const sentences = summary.split(". ");
-
-    sentences.forEach((sentence, i) => {
-      setTimeout(() => {
-        resultDiv.textContent += sentence + (i < sentences.length - 1 ? ". " : "");
-        resultDiv.classList.add("show");
-        // Auto-scroll to bottom if content overflows
-        resultDiv.scrollTop = resultDiv.scrollHeight;
-      }, i * 150); // 150ms delay per sentence
-    });
-
-  } catch (error) {
-    console.error(error);
-    resultDiv.textContent = "Error summarizing text. Please try again.";
-    resultDiv.classList.add("show");
+    resultBox.textContent = summary;
+    resultBox.classList.add('show');
+  } catch (err) {
+    alert("Error summarizing text: " + err.message);
   } finally {
-    summarizeBtn.disabled = false;
-    summarizeBtn.textContent = "Summarize";
+    // Hide loading
+    loadingBtn.classList.add('hidden');
+    summarizeBtn.classList.remove('hidden');
   }
 }
 
-// Event listener
-summarizeBtn.addEventListener("click", summarizeText);
+summarizeBtn.addEventListener('click', summarizeArticle);
 
-// Optional: Allow pressing "Enter + Ctrl" to summarize
-textarea.addEventListener("keydown", (e) => {
-  if (e.ctrlKey && e.key === "Enter") {
-    summarizeText();
+// Optional: Allow Enter + Shift to submit when inside textarea on mobile
+inputText.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    summarizeArticle();
   }
 });
